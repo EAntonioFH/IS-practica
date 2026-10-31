@@ -1,69 +1,76 @@
-const formulario = document.querySelector("#form-id");
-const usuario = document.querySelector("#usuario");
-const password = document.querySelector("#password");
-const mensaje = document.querySelector("#mensaje");
+const formulario = document.getElementById("formLogin");
 
-formulario.addEventListener("submit", function(e){
+const usuario = document.getElementById("usuario");
+
+const password = document.getElementById("contra");
+
+const mensaje = document.getElementById("mensaje");
+
+
+formulario.addEventListener("submit", function(e) {
+
     e.preventDefault();
-    console.log("no");
-    try
-    {
-        let usuarioNum = Number(usuario.value);
 
-        if(Number.isNaN(usuarioNum))
-        {
-            throw new Error("El usuario debe ser numerico")
+    try {
+
+        let usuarioNumero = Number(usuario.value);
+
+        if (Number.isNaN(usuarioNumero)) {
+
+            throw new Error("El usuario debe ser numérico");
+
         }
 
-        mensaje.textContent = "El usuario es valido";
-    }
-    catch(error)
-    {
-        mensaje.textContent = "El usuario NO es valido";
+        mensaje.textContent = "Usuario válido. Continuando...";
+
+    } catch (error) {
+
+        mensaje.textContent = error.message;
+
     }
 
 });
 
-function tarea(nombre, tiempo)
-{
+function tarea(nombre, tiempo){
     return new Promise(resolve => {
-        console.log("La tarea " + nombre + " inició");
-
+        console.log("La tarea "+ nombre + " inició");
         setTimeout(()=>{
-                console.log("La tarea " + nombre + " se terminó");
-                resolve();
-            }, tiempo)
+            console.log("La tarea "+nombre+" se terminó");
+            resolve();
+        }, tiempo)
     });
 }
 
-async function ejecutarSecuencia()
-{
-    console.log("Se ejecutando tareas secuenciales");
+async function ejecutarSecuencial() {
+    console.log("Se están ejecutando tareas secuenciales");
     const inicio = performance.now();
-    
-    await tarea("Consultando", 2000);
-    await tarea("Cargando", 3000);
-    
-    const tiempo = ( (performance.now() - inicio) / 1000).toFixed(2);
-    
-    console.log("La ejecución de realizó en " + tiempo + " segundos");
+
+    await tarea("Consultando datos del perfil",2000);
+    await tarea("Cargando foto de perfil",3000);
+
+    const tiempo = ((performance.now() - inicio) / 1000).toFixed(2);
+    console.log("La ejecución se realizó en "+ tiempo + " segundos");
 }
 
-async function ejecutarConcurrente() {
-    console.log("Se ejecutando tareas concurrentes");
+async function ejecutarConcurrente(){
+    console.log("Se están ejecutando tareas concurrentes");
     const inicio = performance.now();
 
-    await Promise.all(
-        [
-        tarea("Consultando", 2000),
-        tarea("Cargando", 3000)
-        ]
+    await Promise.all([
+        tarea("Consultando datos del perfil",2000),
+        tarea("Cargando foto de perfil",3000)
+    ]    
     );
-
-    const tiempo = ( (performance.now() - inicio) / 1000).toFixed(2);
-    
-    console.log("La ejecución de realizó en " + tiempo + " segundos");
+    const tiempo = ((performance.now() - inicio) / 1000).toFixed(2);
+    console.log("La ejecución se realizó en "+ tiempo + " segundos");
 }
 
-ejecutarSecuencia();
+ejecutarSecuencial();
 ejecutarConcurrente();
+document.getElementById("btnDatos").addEventListener("click", () => {
+    ejecutarConcurrente();
+});
+
+document.getElementById("btnImagen").addEventListener("click", () => {
+    ejecutarSecuencial();
+});

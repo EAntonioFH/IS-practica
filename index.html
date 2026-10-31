@@ -1,40 +1,35 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos/styles.css">
-    <title>Sistema | Login</title>
+    <title>Inicio de sesión</title>
 </head>
-
 <body>
-
     <section>
-
-        <h2>Inicio de sesion</h2>
+        <h2>Inicio de sesión</h2>
 
         <p id="mensaje"></p>
 
-        <form id="form-id">
+        <form id="formLogin">
             <label for="usuario">Usuario</label>
-            <input type="text" id="usiario" class="entrada">
+            <input type="text" id="usuario">
 
-            <label for="password">Password</label>
-            <input type="text" id="password" class="entrada">
+            <label for="contra">Contraseña</label>
+            <input type="password" id="contra">
 
-            <button type="submit" id="enviar"> Enviar </button>
+            <button type="submit">Ingresar</button>
         </form>
+
+        <p>
+            ¿No tienes cuenta?
+            <a href="pages/registro.html">Regístrate aquí</a>
+        </p>
+        <button type="button" id="btnDatos">Concurrente</button>
+        <button type="button" id="btnImagen">secuencial</button>
     </section>
 
-    <p>
-        ¿No tienes cuenta?
-        <a href="./pages/registro.html">registrate aqui</a>
-    </p>
-
     <script src="js/index.js"></script>
-
-
 </body>
-
 </html>
