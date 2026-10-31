@@ -5,30 +5,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="estilos/styles.css">
-    <title>Sistema Inicio de sesión</title>
+    <title>Sistema | Login</title>
 </head>
 
 <body>
 
-        <section>
-            
-            <h2>Inicio de sesion</h2>
-            
-            <form id="formulario">
-                <label for="usuario">Usuario</label>
-                <input type="text" id="usiario" class="entrada">
+    <section>
 
-                <label for="contraseña">contraseña</label>
-                <input type="text" id="contraseña" class="entrada">
-                
-                <button type="submit" id="enviar"> Enviar </button>
-            </form>
-        </section>
+        <h2>Inicio de sesion</h2>
+
+        <p id="mensaje"></p>
+
+        <form id="form-id">
+            <label for="usuario">Usuario</label>
+            <input type="text" id="usiario" class="entrada">
+
+            <label for="password">Password</label>
+            <input type="text" id="password" class="entrada">
+
+            <button type="submit" id="enviar"> Enviar </button>
+        </form>
+    </section>
 
     <p>
         ¿No tienes cuenta?
         <a href="./pages/registro.html">registrate aqui</a>
-    </p> 
+    </p>
 
     <script src="js/index.js"></script>
 
