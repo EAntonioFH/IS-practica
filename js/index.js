@@ -65,8 +65,6 @@ async function ejecutarConcurrente(){
     console.log("La ejecución se realizó en "+ tiempo + " segundos");
 }
 
-ejecutarSecuencial();
-ejecutarConcurrente();
 document.getElementById("btnDatos").addEventListener("click", () => {
     ejecutarConcurrente();
 });
