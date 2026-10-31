@@ -1,0 +1,91 @@
+:root
+{
+    --principal: rgb(238, 174, 122);
+    --secundario: rgb(255, 0, 191);
+    --fondo: rgb(88, 181, 243);
+}
+
+*
+{
+    margin: 0;
+}
+
+body
+{
+    background-color: var(--fondo);
+}
+
+#Encabezado
+{
+    background-color: var(--principal);
+    color: var(--secundario);
+    padding-bottom: 1rem;
+}
+
+h1
+{
+    margin: auto 2rem;
+    text-align: center;
+}
+
+h2
+{
+    margin: 2rem;
+}
+
+ul
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.elemento
+{
+    background-color: var(--secundario);
+    color: var(--principal);
+    font-size: 2rem;
+    padding: 1rem 3rem;
+    margin: 2rem;
+    margin-bottom: 3rem;
+}
+
+.elemento:hover
+{
+    font-size: larger;
+}
+
+form
+{
+    background: var(--principal);
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+
+}
+
+.entrada:focus
+{
+    background-color: var(--fondo);
+}
+
+section
+{
+    font-size: 3rem;
+}
+
+button
+{
+    background-color: var(--fondo);
+    border: 2rem solid var(--secundario);
+    font-size: inherit;
+}
+
+button:hover
+{
+    background-color: var(--principal);
+}
+
+input, button{
+    border-radius: 2rem;
+}
