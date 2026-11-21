@@ -1,75 +1,76 @@
-const mensaje    = document.querySelector("#mensaje");
-const nombre     = document.querySelector("#nombre");
-const domicilio  = document.querySelector("#domicilio");
-const correo     = document.querySelector("#correo");
-const idEmp      = document.querySelector("#idEmp");
-const apPaterno  = document.querySelector("#apPaterno");
-const apMaterno  = document.querySelector("#apMaterno");
-const usuario    = document.querySelector("#usuario");
-const password   = document.querySelector("#password");
+const mensaje = document.querySelector("#mensaje");
+
+const nombre = document.querySelector("#nombre");
+const domicilio = document.querySelector("#domicilio");
+const correo = document.querySelector("#correo");
+const idEmp = document.querySelector("#idEmp");
+
+const botin = document.querySelector("#enviar");
 const formulario = document.querySelector("#formulario");
 
-let usuarios = JSON.parse(localStorage.getItem("usuariosBD")) || [];
+const usuario = document.querySelector("#usuario");
+const password = document.querySelector("#password");
 
-if (mensaje) mensaje.style.color = "black";
+const apellidoP = document.querySelector("#apPaterno");
+const apellidoM = document.querySelector("#apMaterno");
+
+let usuarios = [];
+
+mensaje.style.color = "black";
 
 formulario.addEventListener("submit", (e) => {
     e.preventDefault();
     registrar();
 });
 
-function cambiarMensaje(texto, color = "black") {
+function cambiarMensaje(texto) {
     if (mensaje) {
         mensaje.textContent = texto;
-        mensaje.style.color = color;
     }
 }
 
 async function registrar() {
     try {
-        const name  = nombre.value.trim();
-        const apPat = apPaterno.value.trim();
-        const apMat = apMaterno.value.trim();
-        const user  = usuario.value.trim();
-        const pass  = password.value.trim();
+        var name = nombre.value.trim();
+        var dom = domicilio.value.trim();
+        var corr = correo.value.trim();
+        var id = idEmp.value.trim();
+        var lastName = apellidoP.value.trim();
+        var secondLastName = apellidoM.value.trim();
+        var user = usuario.value.trim();
+        var passwd = password.value.trim();
+
+        let usuarios = JSON.parse(localStorage.getItem("usuariosBD")) || [];
+        usuarios.push({
+            name,
+            dom,
+            corr,
+            id
+        });
 
         const ip = await obtenerIP();
-        console.log("Intentando insertar:", { name, apPat, apMat, user, ip });
+        localStorage.setItem("usuariosBD", JSON.stringify(usuarios));
 
-        const { data, error } = await db
+        const { error } = await db
             .from("tbl_usuarios")
             .insert({
-                nombre:           name,
-                apellido_paterno: apPat,
-                apellido_materno: apMat,
-                usuario:          user,
-                password:         pass,
-                ip_registro:      ip
-            })
-            .select();
-
-        console.log("Respuesta Supabase → data:", data, "error:", error);
+                nombre: name,
+                apellido_paterno: lastName,
+                apellido_materno: secondLastName,
+                usuario: user,
+                password: passwd,
+                ip_registro: ip
+            });
 
         if (error) throw error;
-
-        cambiarMensaje("Registrado correctamente", "green"  );
-        formulario.reset();
-
+        cambiarMensaje("Registrado correctamente");
     } catch (error) {
-        console.error("Error completo:", error);
-        cambiarMensaje(
-            "Error: " + (error.message || JSON.stringify(error)),
-            "red"
-        );
+        cambiarMensaje("Ha ocurrido un error: " + error.message);
     }
 }
 
 async function obtenerIP() {
-    try {
-        const respuesta = await fetch("https://api.ipify.org?format=json");
-        const datos = await respuesta.json();
-        return datos.ip;
-    } catch {
-        return null;
-    }
+    const respuesta = await fetch("https://api.ipify.org?format=json");
+    const datos = await respuesta.json();
+    return datos.ip;
 }
