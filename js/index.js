@@ -7,7 +7,7 @@ const password = document.getElementById("contra");
 const mensaje = document.getElementById("mensaje");
 
 
-formulario.addEventListener("submit", function(e) {
+/*formulario.addEventListener("submit", function(e) {
 
     e.preventDefault();
 
@@ -29,7 +29,28 @@ formulario.addEventListener("submit", function(e) {
 
     }
 
-});
+});*/
+
+formulario.addEventListener("submit", iniciarSesion);
+
+async function iniciarSesion(e) {
+    e.preventDefault();
+
+    try {
+        const {data,error} =await db.
+        from("tbl_usuarios")
+        .select("*")
+        .eq("usuario", usuario.value.trim())
+        .eq("password", password.value.trim())
+        .maybeSingle();
+
+        if(error) throw error;
+
+        mensaje.textContent="Bienvenido al sistema"+data.nombre;
+    } catch (error) {
+        mensaje.textContent="Ocurrio un error"
+    }
+}
 
 function tarea(nombre, tiempo){
     return new Promise(resolve => {
